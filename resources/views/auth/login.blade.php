@@ -1,9 +1,9 @@
 <x-layout>
     <x-slot:title>Login</x-slot>
-    @php
-        $user = Auth::user();
-    @endphp
-    @if ($user)
+    @if (Auth::check())
+        @php
+          $user = Auth::user();
+        @endphp
         <span>すでに{{ $user->name }}としてログイン済みです</span>
     @endif
 
