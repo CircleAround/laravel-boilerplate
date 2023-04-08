@@ -16,7 +16,7 @@ import axios from "axios";
 
 const users = ref([]);
 onMounted(async () => {
-    const url = "http://localhost:3000/api/users";
+    const url = "/api/users";
     const res = await axios.get(url);
     users.value = res.data;
 });
