@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
@@ -6,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends \App\Http\Controllers\Controller
 {
-  public function showLoginForm()
+  public function showForm()
   {
     return view('auth.login');
   }
