@@ -1,0 +1,44 @@
+name: lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run PHP linter
+        run: npm run lint
+
+      - name: Copy env
+        run: cp .env.test .env
+
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+
+      - name: Vendor sail
+        run: |
+          docker run --rm \
+            -u "$(id -u):$(id -g)" \
+            -v "$(pwd):/var/www/html" \
+            -w /var/www/html \
+            laravelsail/php81-composer:latest \
+            composer install --ignore-platform-reqs
+
+      - run: docker-compose up --build -d
+
+      - run: docker-compose exec -it frontend yarn install
+
+      - run: docker-compose exec -it frontend yarn lint
+
+      - run: docker-compose exec -it frontend yarn build
+
+      - name: Test Backend
+        run: docker-compose exec -it laravel.test php artisan test
