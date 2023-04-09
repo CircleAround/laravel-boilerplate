@@ -12,19 +12,18 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Docker Layer Caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
 
       - name: Run PHP linter
         run: npm run lint
 
-      - name: copy env
+      - name: Copy env
         run: cp .env.test .env
 
-      - name: vendor sail
+      - name: Vendor sail
         run: |
           docker run --rm \
             -u "$(id -u):$(id -g)" \
@@ -33,20 +32,13 @@ jobs:
             laravelsail/php81-composer:latest \
             composer install --ignore-platform-reqs
 
-      - name: docker-compose build
-        run: docker-compose build
+      - run: docker-compose up --build -d
 
-      - name: Docker-Compose up
-        run: docker-compose up -d
+      - run: docker-compose exec -it frontend yarn install
 
-      - name: frontend install
-        run: docker-compose exec -it frontend yarn install
+      - run: docker-compose exec -it frontend yarn lint
 
-      - name: frontend lint
-        run: docker-compose exec -it frontend yarn lint
+      - run: docker-compose exec -it frontend yarn build
 
-      - name: frontend build
-        run: docker-compose exec -it frontend yarn build
-
-      - name: Test Server
+      - name: Test Backend
         run: docker-compose exec -it laravel.test php artisan test
