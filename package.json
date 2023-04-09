@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "./php-lint.sh",
+    "lint": "node ./php-lint.js",
     "format:fix": "prettier --write .",
     "format:check": "prettier --check ."
   },

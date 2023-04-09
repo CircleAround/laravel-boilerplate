@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run PHP linter
-        run: sh ./php-lint.sh
+        run: npm run lint
