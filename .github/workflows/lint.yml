@@ -25,8 +25,10 @@ jobs:
       - name: frontend install
         run: docker-compose exec frontend yarn install
 
-      - name: frontend lint and build
+      - name: frontend lint
         run: docker-compose exec frontend yarn lint
+
+      - name: frontend build
         run: docker-compose exec frontend yarn build
 
       - name: Test Server
