@@ -6,8 +6,7 @@ on:
       - main
   pull_request:
     branches:
-      - main
-      - php-lint-ci
+      - '*'
 
 jobs:
   lint:
@@ -19,6 +18,3 @@ jobs:
       - name: Run PHP linter
         run: |
           sh ./php-lint.sh
-          if [ $? -ne 0 ]; then
-            exit 1
-          fi
