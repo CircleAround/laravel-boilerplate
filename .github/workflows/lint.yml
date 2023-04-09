@@ -19,7 +19,7 @@ jobs:
         run: npm run lint
 
       - name: Docker-Compose build
-        run: docker-compose build
+        run: cp .env.test .env && docker-compose build
 
       - name: Docker-Compose up
         run: docker-compose up -d
