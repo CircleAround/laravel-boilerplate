@@ -40,7 +40,7 @@ jobs:
         run: docker-compose up -d
 
       - name: frontend install
-        run: docker-compose exec frontend yarn install
+        run: docker-compose exec -it frontend yarn install
 
       - name: frontend lint
         run: docker-compose exec frontend yarn lint
