@@ -18,8 +18,10 @@ jobs:
       - name: Run PHP linter
         run: npm run lint
 
-      - name: Docker-Compose up
+      - name: Docker-Compose build
         run: docker-compose build
+
+      - name: Docker-Compose up
         run: docker-compose up -d
 
       - name: frontend install
