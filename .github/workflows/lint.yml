@@ -17,3 +17,17 @@ jobs:
 
       - name: Run PHP linter
         run: npm run lint
+
+      - name: Docker-Compose up
+        run: docker-compose build
+        run: docker-compose up -d
+
+      - name: frontend install
+        run: docker-compose exec frontend yarn install
+
+      - name: frontend lint and build
+        run: docker-compose exec frontend yarn lint
+        run: docker-compose exec frontend yarn build
+
+      - name: Test Server
+        run: docker-compose exec laravel.test php artisan test
