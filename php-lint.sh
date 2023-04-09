@@ -7,19 +7,18 @@ DIRECTORY="."
 ERRORS_FOUND=0
 
 # ディレクトリ内の *.php ファイルに対して、php -l を実行
-find "$DIRECTORY" -name "*.php" \
+while IFS= read -r -d '' file; do
+  if [ "$(basename "$file")" = "*.blade.php" ]; then
+    continue
+  fi
+  if ! php -l "$file" | grep -q "^No syntax errors detected in "; then
+    ERRORS_FOUND=1
+  fi
+done < <(find "$DIRECTORY" -name "*.php" \
   ! -path "*/vendor/*" \
   ! -path "*/frontend/*" \
   ! -path "*/storage/*" \
-  ! -name "*.blade.php" \
-  -exec sh -c '
-    if php -l "$1" | grep -q "^No syntax errors detected in "; then
-      :
-    else
-      php -l "$1"
-      ERRORS_FOUND=1
-    fi
-  ' sh {} \;
+  -print0)
 
 # エラーがあった場合は終了ステータスを1に設定する
 if [ "$ERRORS_FOUND" -eq 1 ]; then
