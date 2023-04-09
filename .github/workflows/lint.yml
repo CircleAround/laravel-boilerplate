@@ -18,8 +18,19 @@ jobs:
       - name: Run PHP linter
         run: npm run lint
 
-      - name: Docker-Compose build
-        run: cp .env.test .env && docker-compose build
+      - name: copy env
+        run: cp .env.test .env
+
+      - name: vendor sail
+        run: docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+
+      - name: docker-compose build
+        run: docker-compose build
 
       - name: Docker-Compose up
         run: docker-compose up -d
