@@ -43,10 +43,10 @@ jobs:
         run: docker-compose exec -it frontend yarn install
 
       - name: frontend lint
-        run: docker-compose exec frontend yarn lint
+        run: docker-compose exec -it frontend yarn lint
 
       - name: frontend build
-        run: docker-compose exec frontend yarn build
+        run: docker-compose exec -it frontend yarn build
 
       - name: Test Server
-        run: docker-compose exec laravel.test php artisan test
+        run: docker-compose exec -it laravel.test php artisan test
