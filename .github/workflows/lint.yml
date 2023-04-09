@@ -16,8 +16,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run PHP linter
-        run: |
-          if ! sh ./php-lint.sh; then
-            echo "Lint check failed!"
-            exit 1
-          fi
+        run: sh ./php-lint.sh
