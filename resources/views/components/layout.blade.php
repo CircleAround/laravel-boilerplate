@@ -8,6 +8,16 @@
 </head>
 
 <body>
+    <header>
+        @if (Auth::check())
+            @php
+                $user = Auth::user();
+            @endphp
+            <span>すでに{{ $user->name }}としてログイン済みです</span>
+        @else
+            <span>ログインしていません</span>
+        @endif
+    </header>
     {{ $slot }}
 </body>
 
