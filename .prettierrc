@@ -4,9 +4,11 @@
   ],
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["*.js", "*.vue"],
       "options": {
-        "singleQuote": true
+        "singleQuote": true,
+        "semi": false,
+        "trailingComma": "none"
       }
     },
     {
