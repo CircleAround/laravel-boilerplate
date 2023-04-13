@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Http\Controllers\Admin\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +14,21 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
+// ------------------------------
+// 1つずつのエンドポイントを定義する方式
 Route::get('/', function () {
-  return view('welcome');
+    return view('welcome'); // 動作するロジックをここに直接書くこともできるが、あまり多くは使われない
 });
 
+// エンドポイントに対応したControllerのメソッドを定義する方式
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
+
+// ------------------------------
+// 階層的に、かつ複数のエンドポイントを定義する方式
+Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ app/Http/Kernel.phpで定義 ）
+    ->prefix('admin') // URLの接頭辞として使われる（ ex. http://localhost:3000/admin/users ）
+    ->name('admin.') // ロジック内でURLを呼ぶときの接頭辞（ ex. route('admin.users.index') ）
+    ->group(function () {
+        Route::resource('/users', UsersController::class); // Admin/UsersControllerの決められた名前のメソッドに一気に関連づく
+    });
