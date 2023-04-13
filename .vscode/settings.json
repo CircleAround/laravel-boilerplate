@@ -1,6 +1,15 @@
 {
-  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vscode]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "eslint.workingDirectories": [
     {"mode": "auto"}
   ],
+  "[php]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }

@@ -12,9 +12,11 @@
 				"mikestead.dotenv",
 				"amiralizadeh9480.laravel-extra-intellisense",
 				"ryannaddy.laravel-artisan",
-				// "onecentlin.laravel5-snippets",
 				"onecentlin.laravel-blade",
-        "shufo.vscode-blade-formatter"
+				"shufo.vscode-blade-formatter",
+				"Vue.volar",
+				"bmewburn.vscode-intelephense-client",
+				"esbenp.prettier-vscode"
 			],
 			"settings": {}
 		}

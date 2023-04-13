@@ -8,6 +8,3 @@ composer.lock
 vendor
 frontend
 storage
-
-*.php
-!*.blade.php
