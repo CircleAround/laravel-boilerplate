@@ -3,7 +3,7 @@
 Laravel のトレーニング用ボイラープレートです。実際の開発にありそうな設定等を用意してあり、実務に近い開発を学習するための最初のコードを提供します。
 
 - https://laravel.com/docs/10.x/installation#getting-started-on-macos で使われる https://laravel.build/example-app の内容を調整して作成しています。
-- formatter、lint 等の設定がなされており、 GitHub Actions で　 CI が動作します。
+- formatter、lint 等の設定がなされており、GitHub Actions で CI が動作します。
 - フロントエンド開発の環境を追加しています。
 
 ## ブランチについて
