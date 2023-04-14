@@ -16,7 +16,10 @@
 				"shufo.vscode-blade-formatter",
 				"Vue.volar",
 				"bmewburn.vscode-intelephense-client",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"ms-vscode-remote.remote-containers",
+				"ms-azuretools.vscode-docker",
+				"octref.vetur"
 			],
 			"settings": {}
 		}
