@@ -29,7 +29,7 @@ class RequestLogger
         $response = $next($request);
 
         if ($this->canWrite($request)) {
-            $this->after($request, $response);
+            $this->after($request);
         }
 
         return $response;
@@ -49,13 +49,13 @@ class RequestLogger
      */
     private function before(Request $request): void
     {
-        Log::debug(join(' ', [$request->method(), $request->fullUrl(), 'params:', join(',', $request->all())]));
+        Log::debug(join(' ', [$request->method(), $request->fullUrl(), 'params:', json_encode($request->all())]));
     }
 
     /**
      * @param Request $request
      */
-    private function after(Request $request, Response $response): void
+    private function after(Request $request): void
     {
         Log::debug(join(' ', ['  <end>', $request->method(), $request->fullUrl()]));
     }
