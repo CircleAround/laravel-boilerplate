@@ -1,7 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   devServer: {
-    proxy: 'http://laravel.test'
+    proxy: 'http://app'
   },
 
   transpileDependencies: true

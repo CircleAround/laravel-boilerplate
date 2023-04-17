@@ -34,7 +34,7 @@ jobs:
 
       - run: docker-compose up --build -d
 
-      - run: docker-compose exec -it laravel.test yarn format:check
+      - run: docker-compose exec -it app yarn format:check
 
       - run: docker-compose exec -it frontend yarn install
 
@@ -43,4 +43,4 @@ jobs:
       - run: docker-compose exec -it frontend yarn build
 
       - name: Test Backend
-        run: docker-compose exec -it laravel.test php artisan test
+        run: docker-compose exec -it app php artisan test
