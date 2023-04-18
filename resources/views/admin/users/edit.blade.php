@@ -16,6 +16,12 @@
         @method('patch')
 
         @include('components.admin.user-fields')
+
+        <div>
+            <label>パスワード（変更したい場合に入力）</label>
+            <input type="password" name="password" value="">
+        </div>
+
         <input type="submit" value="更新">
     </form>
 </x-layout>
