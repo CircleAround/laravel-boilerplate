@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -14,7 +16,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -35,18 +38,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // @see https://laravel.com/docs/9.x/validation#quick-writing-the-validation-logic
+        $validated = $request->validate([
+            'name' => 'required|max:10',
+            'email' => 'required|unique:users|',
+            'password' => 'required',
+        ]);
+
+        return to_route('admin.users.show', ['user' => $user->id]);
     }
 
     /**
-     * Display the specified resource.
+     * /admin/users/{id}
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        // User型の指定によりDIでidから検索した結果が取れる。
+        // show($id) のように型指定がなければidの数値。
+        // 暗に以下のようなコードが呼ばれている。
+        // $user = User::findOrFail($id);
+
+        return view('admin.users.show', compact('user'));
+        // return view('admin.users.show', ['user' => $user]); // これと同じ意味になる
     }
 
     /**
@@ -55,9 +71,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -67,9 +83,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        // @see https://laravel.com/docs/9.x/validation#quick-writing-the-validation-logic
+        $validated = $request->validate([
+            'name' => 'required|max:10',
+            'email' => "required|email|unique:users,email,{$user->id}",
+            // 'password' => 'required'
+        ]);
+        
+        // Hash::make('password'),
+        $user->fill($validated);
+        $user->save();
+
+        Log::debug($user->toJson());
+        return to_route('admin.users.show', ['user' => $user->id]);
     }
 
     /**

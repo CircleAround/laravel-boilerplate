@@ -28,7 +28,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 // 階層的に、かつ複数のエンドポイントを定義する方式
 Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ app/Http/Kernel.phpで定義 ）
     ->prefix('admin') // URLの接頭辞として使われる（ ex. http://localhost:3000/admin/users ）
-    ->name('admin.') // ロジック内でURLを呼ぶときの接頭辞（ ex. route('admin.users.index') ）
+    ->name('admin.') // 名前付きrouteでURLを呼び出すときの接頭辞（ ex. route('admin.users.index') ）
     ->group(function () {
         Route::resource('/users', UsersController::class); // Admin/UsersControllerの決められた名前のメソッドに一気に関連づく
     });
