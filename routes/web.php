@@ -18,11 +18,12 @@ use App\Http\Controllers\Admin\UsersController;
 // 1つずつのエンドポイントを定義する方式
 Route::get('/', function () {
     return view('welcome'); // 動作するロジックをここに直接書くこともできるが、あまり多くは使われない
-});
+})->name('home');
 
 // エンドポイントに対応したControllerのメソッドを定義する方式
 Route::get('/login', [LoginController::class, 'showForm'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // ------------------------------
 // 階層的に、かつ複数のエンドポイントを定義する方式

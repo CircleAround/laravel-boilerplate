@@ -89,14 +89,15 @@ class UsersController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:10',
             'email' => "required|email|unique:users,email,{$user->id}",
-            // 'password' => 'required'
+            'password' => 'regex:/^[!-~]+$/'
         ]);
-        
-        // Hash::make('password'),
-        $user->fill($validated);
-        $user->save();
 
-        Log::debug($user->toJson());
+        $user->fill($validated);
+        if(isset($validated['password'])) {
+            $user->setPassword($validated['password']);
+        }
+
+        $user->save();
         return to_route('admin.users.show', ['user' => $user->id]);
     }
 

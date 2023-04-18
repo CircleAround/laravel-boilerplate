@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->role == UserRole::Admin;
     }
+
+    public function setPassword($password) {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

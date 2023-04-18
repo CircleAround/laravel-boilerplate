@@ -14,8 +14,12 @@
                 $user = Auth::user();
             @endphp
             <span>すでに{{ $user->name }}としてログイン済みです</span>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <input type="submit" value="ログアウト">
+            </form>
         @else
-            <span>ログインしていません</span>
+            <a href="{{ route('login') }}">ログイン</a>
         @endif
     </header>
     {{ $slot }}
