@@ -1,27 +1,24 @@
 <x-layout>
     <x-slot name="title">User: (id:{{ $user->id }})/edit</x-slot>
-    <h1>Users:edit</h1>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <h2><a href="{{ route('admin.users.index') }}">Admin/Users</a> / Users:edit</h2>
+    <x-form-error />
+    <x-mini-panel>
+        <form action="{{ route('admin.users.update', $user) }}" method="post">
+            @csrf
+            @method('patch')
 
-    <form action="{{ route('admin.users.update', ['user' => $user]) }}" method="post">
-        @csrf
-        @method('patch')
+            @include('components.admin.user-fields')
 
-        @include('components.admin.user-fields')
+            <div class="mb-3">
+                <label class="form-label" for="userPassword">パスワード（変更したい場合に入力）</label>
+                <input type="password" name="password" value="" id="userPassword"
+                    class="form-control @error('password') is-invalid @enderror">
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
 
-        <div>
-            <label>パスワード（変更したい場合に入力）</label>
-            <input type="password" name="password" value="">
-        </div>
-
-        <input type="submit" value="更新">
-    </form>
+            <input type="submit" value="更新" class="btn btn-primary">
+        </form>
+    </x-form-panel>
 </x-layout>

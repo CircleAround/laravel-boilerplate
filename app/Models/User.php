@@ -47,7 +47,19 @@ class User extends Authenticatable
         return $this->role == UserRole::Admin;
     }
 
-    public function setPassword($password) {
+    public function updateAttributes($attributes) {
+        if(isset($attributes['password'])) {
+            $this->fill($attributes);
+            $this->setPassword($attributes['password']);
+        } else {
+            unset($attributes['password']);
+            $this->fill($attributes);
+        }
+
+        $this->save();
+    }
+
+    private function setPassword($password) {
         $this->attributes['password'] = bcrypt($password);
     }
 }

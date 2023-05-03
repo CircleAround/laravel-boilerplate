@@ -1,23 +1,31 @@
 <x-layout>
     <x-slot name="title">Users</x-slot>
-    <h1><a href="{{ route('admin.users.index') }}">Admin/Users</a></h1>
+    <h2><a href="{{ route('admin.users.index') }}">Admin/Users</a></h2>
 
-    <table>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>email</th>
-            <th>actions</th>
-        </tr>
-        @foreach ($users as $user)
+    <div class="text-end mb-2">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">新規作成</a>
+    </div>
+
+    <table class="table table-striped align-middle">
+        <thead class="table-light">
             <tr>
-                <td>{{ $user->id }}</td>
-                <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
-                <td>{{ $user->email }}</td>
-                <td>
-                  <a href="{{ route('admin.users.edit', $user) }}">edit</a>
-                </td>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">email</th>
+                <th scope="col">actions</th>
             </tr>
-        @endforeach
+        </thead>
+        <tbody>
+            @foreach ($users as $user)
+                <tr>
+                    <th scope="row">{{ $user->id }}</th>
+                    <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary btn-sm">edit</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
     </table>
 </x-layout>
