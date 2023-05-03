@@ -1,8 +1,8 @@
 <x-layout>
     <x-slot name="title">User: (id:{{ $user->id }})/edit</x-slot>
     <h2><a href="{{ route('admin.users.index') }}">Admin/Users</a> / Users:edit</h2>
-    <x-form-error />
     <x-mini-panel>
+        <x-form-error />
         <form action="{{ route('admin.users.update', $user) }}" method="post">
             @csrf
             @method('patch')
@@ -20,5 +20,5 @@
 
             <input type="submit" value="更新" class="btn btn-primary">
         </form>
-    </x-form-panel>
+    </x-mini-panel>
 </x-layout>
