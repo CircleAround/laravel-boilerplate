@@ -18,6 +18,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         return view('admin.users.index', compact('users'));
+        // return view('admin.users.index', ['users' => $users]); // これと同じ意味になる
     }
 
     /**
@@ -27,7 +28,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $user = new User();
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -41,11 +43,15 @@ class UsersController extends Controller
         // @see https://laravel.com/docs/9.x/validation#quick-writing-the-validation-logic
         $validated = $request->validate([
             'name' => 'required|max:10',
-            'email' => 'required|unique:users|',
-            'password' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|regex:/^[1-9a-zA-Z!@_]+$/|min:8',
         ]);
 
-        return to_route('admin.users.show', ['user' => $user->id]);
+        $user = new User($validated);
+        $user->save();
+
+        return to_route('admin.users.show', $user);
+        // return redirect()->route('admin.users.show', $user); // これと同じ意味になる
     }
 
     /**
@@ -62,7 +68,6 @@ class UsersController extends Controller
         // $user = User::findOrFail($id);
 
         return view('admin.users.show', compact('user'));
-        // return view('admin.users.show', ['user' => $user]); // これと同じ意味になる
     }
 
     /**
@@ -89,15 +94,11 @@ class UsersController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:10',
             'email' => "required|email|unique:users,email,{$user->id}",
-            'password' => 'regex:/^[!-~]+$/'
+            'password' => 'nullable|regex:/^[1-9a-zA-Z!@_]+$/|min:8'
         ]);
 
-        $user->fill($validated);
-        if(isset($validated['password'])) {
-            $user->setPassword($validated['password']);
-        }
+        $user->updateAttributes($validated);
 
-        $user->save();
         return to_route('admin.users.show', ['user' => $user->id]);
     }
 

@@ -1,4 +1,4 @@
 <x-layout>
     <x-slot name="title">Top</x-slot>
-    <h1>Welcome!</h1>
+    <h2>Welcome!</h2>
 </x-layout>
