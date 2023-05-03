@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,5 +31,5 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
     ->prefix('admin') // URLの接頭辞として使われる（ ex. http://localhost:3000/admin/users ）
     ->name('admin.') // 名前付きrouteでURLを呼び出すときの接頭辞（ ex. route('admin.users.index') ）
     ->group(function () {
-        Route::resource('/users', UsersController::class); // Admin/UsersControllerの決められた名前のメソッドに一気に関連づく
+        Route::resource('/users', UserController::class); // Admin/UserControllerの決められた名前のメソッドに一気に関連づく
     });
