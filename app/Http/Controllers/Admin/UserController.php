@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -50,7 +49,7 @@ class UserController extends Controller
         $user = new User($validated);
         $user->save();
 
-        return to_route('admin.users.show', $user);
+        return to_route('admin.users.show', $user)->with('success', 'ユーザーを作成しました');
         // return redirect()->route('admin.users.show', $user); // これと同じ意味になる
     }
 
@@ -73,7 +72,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -85,7 +84,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -99,16 +98,16 @@ class UserController extends Controller
 
         $user->updateAttributes($validated);
 
-        return to_route('admin.users.show', ['user' => $user->id]);
+        return to_route('admin.users.show', ['user' => $user->id])->with('success', "{$user->name}を更新しました");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }
