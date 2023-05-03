@@ -16,7 +16,7 @@
 
 <body>
     <div class="container">
-        <header>
+        <header class="mb-2">
             @if (Auth::check())
                 @php
                     $user = Auth::user();
@@ -39,6 +39,8 @@
             @endif
         </header>
         <main>
+            <x-flash-message />
+
             {{ $slot }}
         </main>
     </div>
