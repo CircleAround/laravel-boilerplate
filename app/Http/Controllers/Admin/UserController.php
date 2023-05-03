@@ -44,6 +44,7 @@ class UserController extends Controller
             'name' => 'required|max:10',
             'email' => 'required|unique:users',
             'password' => 'required|regex:/^[1-9a-zA-Z!@_]+$/|min:8',
+            'role' => 'required'            
         ]);
 
         $user = new User($validated);
@@ -93,7 +94,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:10',
             'email' => "required|email|unique:users,email,{$user->id}",
-            'password' => 'nullable|regex:/^[1-9a-zA-Z!@_]+$/|min:8'
+            'password' => 'nullable|regex:/^[1-9a-zA-Z!@_]+$/|min:8',
+            'role' => 'nullable'
         ]);
 
         $user->updateAttributes($validated);
@@ -109,6 +111,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return to_route('admin.users.index')->with('success', "{$user->name}を削除しました");
     }
 }

@@ -26,7 +26,7 @@
                 </div>
                 <nav class="text-end">
                     <span>{{ $user->name }}(id:{{ $user->id }})</span>
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline">
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
                         @csrf
                         <input type="submit" value="ログアウト" class="btn btn-secondary">
                     </form>

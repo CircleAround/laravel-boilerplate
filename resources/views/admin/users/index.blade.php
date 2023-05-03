@@ -10,6 +10,7 @@
         <thead class="table-light">
             <tr>
                 <th scope="col">id</th>
+                <th scope="col">role</th>
                 <th scope="col">name</th>
                 <th scope="col">email</th>
                 <th scope="col">actions</th>
@@ -19,10 +20,20 @@
             @foreach ($users as $user)
                 <tr>
                     <th scope="row">{{ $user->id }}</th>
+                    <td>@lang("model.enum.user_roles.{$user->role->value}")</td>
                     <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary btn-sm">edit</a>
+                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary btn-sm">編集</a>
+
+                        @if (!$user->isAdmin())
+                            <form action="{{ route('admin.users.destroy', $user) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('delete')
+                                <input type="submit" value="削除" class="btn btn-danger btn-sm"
+                                    onclick='return confirm("削除しますか？")'>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach
