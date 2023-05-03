@@ -21,7 +21,7 @@
         <select name="role" value="{{ old('role', $user->role) }}" id="userRole"
             class="form-control @error('role') is-invalid @enderror">
             @foreach (App\Models\UserRole::values() as $role)
-                <option value="{{ $role }}" @selected(intval(old('role', $user->role->value)) === $role)>@lang("model.enum.user_roles.{$role}")</option>
+                <option value="{{ $role }}" @selected(intval(old('role', $user->role?->value)) === $role)>@lang("model.enum.user_roles.{$role}")</option>
             @endforeach
         </select>
         @error('role')
