@@ -14,3 +14,18 @@
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
 </div>
+
+@if (Auth::user() != $user)
+    <div class="mb-3">
+        <label class="form-label" for="userRole">権限</label>
+        <select name="role" value="{{ old('role', $user->role) }}" id="userRole"
+            class="form-control @error('role') is-invalid @enderror">
+            @foreach (App\Models\UserRole::values() as $role)
+                <option value="{{ $role }}" @selected(intval(old('role', $user->role->value)) === $role)>@lang("model.enum.user_roles.{$role}")</option>
+            @endforeach
+        </select>
+        @error('role')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+@endif

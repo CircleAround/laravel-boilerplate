@@ -10,6 +10,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 enum UserRole: int
 {
+    use \App\Traits\Enum\EnumToArray;
+
     case Normal = 0;
     case Admin = 1;
 }
@@ -23,7 +25,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'role'];
 
     /**
      * The attributes that should be hidden for serialization.
