@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">User: (id:{{ $user->id }})/edit</x-slot>
-    <h2><a href="{{ route('admin.users.index') }}">Admin/Users</a> / Users:edit</h2>
+    <h2><a href="{{ route('admin.users.index') }}">Admin/Users</a> / {{ $user->name }}(id:{{ $user->id }})</h2>
     <x-mini-panel>
         <x-form-error />
         <form action="{{ route('admin.users.update', $user) }}" method="post">
