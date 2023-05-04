@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Manager\TeamController;
+use App\Http\Controllers\Manager\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::prefix('manager')
     ->name('manager.')
     ->group(function () {
         Route::resource('/teams', TeamController::class, ['except' => 'destroy']);
+        Route::resource('/teams.tasks', TaskController::class, ['except' => ['destroy', 'index', 'show']]);
     });
