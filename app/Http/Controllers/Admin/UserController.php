@@ -47,8 +47,7 @@ class UserController extends Controller
             'role' => 'required'            
         ]);
 
-        $user = new User($validated);
-        $user->save();
+        $user = User::createAsVerified($validated);
 
         return to_route('admin.users.show', $user)->with('success', 'ユーザーを作成しました');
         // return redirect()->route('admin.users.show', $user); // これと同じ意味になる
