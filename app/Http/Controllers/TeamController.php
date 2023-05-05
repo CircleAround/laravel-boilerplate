@@ -33,19 +33,7 @@ class TeamController extends \App\Http\Controllers\Controller
             'name' => 'required|max:20',
         ]);
 
-        $team = DB::transaction(function () use ($validated) {
-            $team = new Team($validated);
-            $team->owner_id = Auth::user()->id;
-            $team->save();
-
-            $member = new Member();
-            $member->team_id = $team->id;
-            $member->user_id = $team->owner_id;
-            $member->role = 1;
-            $member->save();
-
-            return $team;
-        });
+        $team = Team::createWithOwner(Auth::user(), $validated);
 
         return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
