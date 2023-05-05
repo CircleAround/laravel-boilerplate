@@ -46,8 +46,14 @@ class User extends Authenticatable
         'role' => UserRole::class,
     ];
 
-    public function ownTeams() {
+    public function ownTeams()
+    {
         return $this->hasMany(Team::class, 'owner_id');
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'members');
     }
 
     public function isAdmin()
@@ -57,23 +63,21 @@ class User extends Authenticatable
 
     // 管理者から新規ユーザーを作成する特殊なメソッド。
     // 作成されたユーザーはemailの認証が済んだ状態になる。
-    public static function createAsVerified($attributes) {
+    public static function createAsVerified($attributes)
+    {
         $user = new User();
 
         //　通常許可しない email_verified_at や remember_token を管理者用ロジックから直接書き換えるため一時的にガードを外す
-        User::unguard(); 
-        $user->updateAttributes([
-            ...$attributes, 
-            'email_verified_at' => now(),
-            'remember_token' => Str::random(10)
-        ]);
+        User::unguard();
+        $user->updateAttributes([...$attributes, 'email_verified_at' => now(), 'remember_token' => Str::random(10)]);
         User::reguard();
 
         return $user;
     }
 
-    public function updateAttributes($attributes) {
-        if(isset($attributes['password'])) {
+    public function updateAttributes($attributes)
+    {
+        if (isset($attributes['password'])) {
             $this->fill($attributes);
             $this->setPassword($attributes['password']);
         } else {
@@ -84,7 +88,8 @@ class User extends Authenticatable
         $this->save();
     }
 
-    private function setPassword($password) {
+    private function setPassword($password)
+    {
         $this->attributes['password'] = bcrypt($password);
     }
 }

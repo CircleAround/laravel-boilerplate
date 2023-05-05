@@ -4,6 +4,7 @@
 
     <div class="text-end mb-2">
       <a href="{{route('manager.teams.tasks.create', $team)}}" class="btn btn-primary">タスクの新規作成</a>
+      <a href="{{route('manager.teams.members.index', $team)}}" class="btn btn-primary">メンバー管理</a>
       <a href="{{ route('manager.teams.edit', $team) }}" class="btn btn-primary">編集</a>
     </div>
 
