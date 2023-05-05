@@ -38,7 +38,8 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
         Route::resource('/users', UserController::class); // Admin/UserControllerの決められた名前のメソッドに一気に関連づく
     });
 
-Route::prefix('manager')
+Route::middleware(['auth', 'ensureManager'])
+    ->prefix('manager')
     ->name('manager.')
     ->scopeBindings()
     ->group(function () {
