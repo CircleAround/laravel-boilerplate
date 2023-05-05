@@ -13,10 +13,21 @@ class Team extends Model
 
     public function owner()
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function tasks() {
+    public function tasks()
+    {
         return $this->hasMany(Task::class);
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, 'members');
+    }
+
+    public function members()
+    {
+        return $this->hasMany(Member::class);
     }
 }

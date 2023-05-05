@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Manager\TeamController;
 use App\Http\Controllers\Manager\TaskController;
+use App\Http\Controllers\Manager\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::prefix('manager')
     ->group(function () {
         Route::resource('/teams', TeamController::class, ['except' => 'destroy']);
         Route::resource('/teams.tasks', TaskController::class, ['except' => ['destroy', 'index', 'show']]);
+        Route::resource('/teams.members', MemberController::class, ['only' => ['index', 'store']]);
     });
 
     
