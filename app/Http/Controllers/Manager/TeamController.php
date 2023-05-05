@@ -46,7 +46,7 @@ class TeamController extends \App\Http\Controllers\Controller
         $team->owner_id = Auth::user()->id;
         $team->save();
 
-        return to_route('manager.teams.show', $team)->with('success', 'ユーザーを作成しました');
+        return to_route('manager.teams.show', $team)->with('success', 'チームを作成しました');
     }
 
     /**
