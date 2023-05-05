@@ -47,4 +47,6 @@ Route::prefix('manager')
         Route::resource('/teams.members', MemberController::class, ['only' => ['index', 'store']]);
     });
 
+Route::resource('/teams', App\Http\Controllers\TeamController::class, ['only' => ['create', 'store']]);
+        
     
