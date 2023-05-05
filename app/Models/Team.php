@@ -55,4 +55,13 @@ class Team extends Model
             ->where(['user_id' => $user->id])
             ->first();
     }
+
+    public function isManager(User $user)
+    {
+        return !empty(
+            $this->members()
+                ->where(['user_id' => $user->id, 'role' => 1])
+                ->first()
+        );
+    }
 }
