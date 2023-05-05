@@ -30,4 +30,11 @@ class Team extends Model
     {
         return $this->hasMany(Member::class);
     }
+
+    public function memberOf(User $user)
+    {
+        return $this->members()
+            ->where(['user_id' => $user->id])
+            ->first();
+    }
 }
