@@ -1,4 +1,4 @@
 <x-layout>
     <x-slot name="title">Top</x-slot>
-    <a href="{{ route('manager.teams.index') }}">チーム管理</a>
+    <a href="{{ route('teams.create') }}">チーム作成</a>
 </x-layout>
