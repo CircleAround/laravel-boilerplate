@@ -30,6 +30,7 @@ class TaskController extends \App\Http\Controllers\Controller
         $validated = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'assignee_id' => 'nullable'
         ]);
 
         $task = new Task($validated);
@@ -62,6 +63,7 @@ class TaskController extends \App\Http\Controllers\Controller
         $validated = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'assignee_id' => 'nullable'
         ]);
 
         $task->fill($validated);
