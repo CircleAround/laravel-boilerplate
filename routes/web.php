@@ -39,7 +39,10 @@ Route::middleware(['auth', 'ensureAdmin']) // 適用したいMiddleware名（ ap
 
 Route::prefix('manager')
     ->name('manager.')
+    ->scopeBindings()
     ->group(function () {
         Route::resource('/teams', TeamController::class, ['except' => 'destroy']);
         Route::resource('/teams.tasks', TaskController::class, ['except' => ['destroy', 'index', 'show']]);
     });
+
+    
