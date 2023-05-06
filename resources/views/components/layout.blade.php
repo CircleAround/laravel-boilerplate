@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 
-<body>
+<body class="bg-light">
     <div class="container">
         <header class="mb-2">
             @if (Auth::check())
