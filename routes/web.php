@@ -48,7 +48,10 @@ Route::middleware(['auth', 'ensureManager'])
         Route::resource('/teams.members', MemberController::class, ['only' => ['index', 'store']]);
     });
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('/teams', App\Http\Controllers\TeamController::class, ['only' => ['create', 'store']]);
-    Route::resource('/tasks', App\Http\Controllers\TaskController::class, ['only' => 'show']);
-});
+Route::middleware(['auth'])
+    ->scopeBindings()
+    ->group(function () {
+        Route::resource('/teams', App\Http\Controllers\TeamController::class, ['only' => ['create', 'store']]);
+        Route::resource('/tasks', App\Http\Controllers\TaskController::class, ['only' => 'show']);
+        Route::resource('/tasks.comments', App\Http\Controllers\CommentController::class, ['only' => 'store']);
+    });
