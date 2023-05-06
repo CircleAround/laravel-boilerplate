@@ -13,6 +13,7 @@ class TaskController extends \App\Http\Controllers\Controller
 {
     public function show(Task $task)
     {
-        return view('tasks.show', compact('task'));
+        $comments = $task->comments()->orderBy('created_at')->get();
+        return view('tasks.show', compact('task', 'comments'));
     }
 }
