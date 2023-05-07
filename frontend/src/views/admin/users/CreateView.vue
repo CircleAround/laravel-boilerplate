@@ -33,12 +33,13 @@
 
 <script setup>
 import { inject, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios, { AxiosError } from 'axios'
 import { flashMessageKey } from '@/keys'
 import ErrorPanel from '@/components/ErrorPanel'
 
 const route = useRoute()
+const router = useRouter()
 
 const user = ref({ id: route.params.id })
 const error = ref({})
@@ -53,6 +54,7 @@ const handleSubmit = async () => {
   try {
     await axios.post('/api/users', user.value)
     setMessage('作成しました')
+    router.push('/admin/users')
   } catch (err) {
     if (err instanceof AxiosError && err.response.status === 422) {
       error.value = err.response.data
