@@ -48,7 +48,20 @@ cp .env.example .env
 
 ## 起動
 
+### 1. composer install
+必要な外部モジュールを事前にインストールするために、以下のコマンドをプロジェクトのルートディレクトリで行います。
+
+```
+docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest bash -c "composer install"
+```
+
+この結果、 vendor ディレクトリが作成されて、中にディレクトリが多数できれば成功です。
+
+### 2. VSCode の Dev Containerで開く
+
 VSCode の Dev Container 機能が有効になっています。プロジェクトを VSCode で開くと Dev Container で再度開く旨が通知されるので、OK してください。初回は少し時間がかかるかもしれませんが、2度目以降は早く起動するようになるはずです。
+
+### 3. DBの初期化
 
 VSCodeのターミナルから以下のコマンドを入力すると、DBを初期化することができます。
 
@@ -56,10 +69,17 @@ VSCodeのターミナルから以下のコマンドを入力すると、DBを初
 sail@3d84e5412bb8:/var/www/html$ php artisan migrate:fresh --seed
 ```
 
-この時点でシステムは稼働していて、ソースコードを変更するとその変更がシステムに反映される想定です。
+この時点でシステムは稼働していて、ソースコードを変更するとその変更がシステムに反映される想定です。 `.env.example` の内容に従っていれば、以下のURLが稼働しています。
 
 - http://localhost:3000 サーバーサイドのシステム（通常のWebアクセスおよびAPI提供）
 - http://localhost:8080 フロントエンドのシステム（Vue3開発用）
+
+## 明示的に終了
+VSCodeを閉じるとDockerの環境も終了するはずですが、もしも終了していない様子であれば、ホスト側のターミナルから以下のコマンドを使いましょう。
+
+```
+$ docker-compose down
+```
 
 ## 学習を開始するにあたって
 
