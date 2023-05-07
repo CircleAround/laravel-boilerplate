@@ -41,3 +41,14 @@ Laravel のトレーニング用ボイラープレートです。実際の開発
 ## 起動方法
 
 VSCode の Dev Container 機能が有効になっています。プロジェクトを VSCode で開くと Dev Container で再度開く旨が通知されるので、OK してください。この時点でシステムは稼働していて、ソースコードを変更するとその変更がシステムに反映されるはずです。
+
+## 学習を開始するにあたって
+
+実際に開発を始める前に、既に実装されているユーザー管理のコードを見ておくと、スムーズに進められるでしょう。
+
+### Admin/UserController
+https://github.com/CircleAround/laravel-boilerplate/blob/base-php8-laravel9-node18-vue3/app/Http/Controllers/Admin/UserController.php
+
+### routes/web.php
+https://github.com/CircleAround/laravel-boilerplate/blob/d4f58da587166a22ec06b9f5c814c7247780097b/routes/web.php#L30-L35
+
