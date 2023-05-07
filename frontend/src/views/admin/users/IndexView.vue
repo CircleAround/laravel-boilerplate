@@ -48,8 +48,12 @@ const { setMessage } = inject(flashMessageKey) // flashメッセージに設定�
 const error = ref({})
 
 const reloadUsers = async () => {
-  const res = await axios.get('/api/users')
-  users.value = res.data
+  try {
+    const res = await axios.get('/api/users')
+    users.value = res.data
+  } catch (err) {
+    error.value = { message: err.message }
+  }
 }
 
 ;(async () => {

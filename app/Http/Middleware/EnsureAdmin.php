@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EnsureAdmin
 {
@@ -17,7 +18,11 @@ class EnsureAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!$request->user()->isAdmin()) {
-            return redirect('/');
+            if ($request->is('api/*')) {
+                return response()->json(['message' => 'アクセスできません'], 403);
+            } else {
+                return redirect('/')->with('danger', 'アクセスできません');
+            }
         }
 
         return $next($request);
