@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -15,6 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        Log::debug("### UserController#index ###"); // この内容は `storage/logs/laravel.log` のログに出ます。
+
         $users = User::all();
         return view('admin.users.index', compact('users'));
         // return view('admin.users.index', ['users' => $users]); // これと同じ意味になる
