@@ -1,24 +1,24 @@
 <template>
   <div>
-    <div>編集</div>
-    <div class="card-body">
+    <h2>編集</h2>
+    <div class="mini-panel">
       <ErrorPanel :error="error"></ErrorPanel>
       <form v-on:submit.prevent="handleSubmit">
         <div class="form-group">
           <label>名前:</label>
-          <input type="text" class="form-control" v-model="user.name" :disabled="blocking" />
+          <input type="text" v-model="user.name" :disabled="blocking" />
         </div>
         <div class="form-group">
           <label>Email:</label>
-          <input type="text" class="form-control" v-model="user.email" :disabled="blocking" />
+          <input type="text" v-model="user.email" :disabled="blocking" />
         </div>
         <div class="form-group">
           <label>パスワード:</label>
-          <input type="password" class="form-control" v-model="user.password" :disabled="blocking" />
+          <input type="password" v-model="user.password" :disabled="blocking" />
         </div>
         <div class="form-group">
           <label>権限:</label>
-          <select class="form-control" v-model="user.role" :disabled="blocking">
+          <select v-model="user.role" :disabled="blocking">
             <option value="0">通常</option>
             <option value="1">管理者</option>
           </select>
