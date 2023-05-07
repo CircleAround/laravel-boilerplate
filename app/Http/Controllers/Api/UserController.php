@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -77,6 +79,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if (Auth::user()->id === $user->id) {
+            return response()->json(['message' => '自分自身は削除できません'], 422);
+        }
+
         $user->delete();
         return response()->json($user);
     }
