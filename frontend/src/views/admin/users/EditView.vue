@@ -16,7 +16,7 @@
           <label>パスワード:</label>
           <input type="password" v-model="user.password" :disabled="blocking" />
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="currentUser.id !== user.id">
           <label>権限:</label>
           <select v-model="user.role" :disabled="blocking">
             <option value="0">通常</option>
@@ -35,11 +35,12 @@
 import { inject, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import axios, { AxiosError } from 'axios'
-import { flashMessageKey } from '@/keys'
+import { userKey, flashMessageKey } from '@/keys'
 import ErrorPanel from '@/components/ErrorPanel'
 
 const route = useRoute()
 
+const currentUser = inject(userKey) // ログイン中のユーザー取得
 const user = ref({ id: route.params.id })
 const error = ref({})
 const blocking = ref(true)
