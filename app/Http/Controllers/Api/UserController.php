@@ -20,16 +20,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +27,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:10',
+            'email' => 'required|unique:users',
+            'password' => 'required|regex:/^[1-9a-zA-Z!@_]+$/|min:8',
+            'role' => 'required',
+        ]);
+
+        $user = User::createAsVerified($validated);
+        return response()->json($user);
     }
 
     /**
@@ -46,20 +44,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($user);
     }
 
     /**
@@ -69,9 +56,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:10',
+            'email' => "required|email|unique:users,email,{$user->id}",
+            'password' => 'nullable|regex:/^[1-9a-zA-Z!@_]+$/|min:8',
+            'role' => 'nullable',
+        ]);
+
+        $user->updateAttributes($validated);
+        return response()->json($user);
     }
 
     /**
@@ -80,8 +75,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json($user);
     }
 }
