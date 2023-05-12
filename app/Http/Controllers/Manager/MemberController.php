@@ -17,7 +17,8 @@ class MemberController extends \App\Http\Controllers\Controller
     public function index(Team $team)
     {
         $users = User::orderBy('id')->get();
-        return view('manager.members.index', compact('team', 'users'));
+        $members = $team->members()->with('user')->get();
+        return view('manager.members.index', compact('team', 'users', 'members'));
     }
 
     /**

@@ -16,7 +16,8 @@ class TeamController extends \App\Http\Controllers\Controller
      */
     public function show(Team $team)
     {
-        return view('manager.teams.show', compact('team'));
+        $tasks = $team->tasks()->with('assignee')->get();
+        return view('manager.teams.show', compact('team', 'tasks'));
     }
 
     /**

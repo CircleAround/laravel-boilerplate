@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($team->members as $member)
+            @foreach ($members as $member)
                 <tr>
                     <th scope="row">
                         <!-- 後で適切に実装しましょう -->

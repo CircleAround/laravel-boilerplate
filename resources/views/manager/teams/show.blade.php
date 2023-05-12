@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($team->tasks as $task)
+            @foreach ($tasks as $task)
                 <tr>
                     <th scope="row">{{ $task->id }}</th>
                     <td>{{ $task->title }}</td>
