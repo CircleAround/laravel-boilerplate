@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::post('logout', [LoginController::class, 'logout']);
 Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 });
+
+Route::apiResource('/teams', TeamController::class);

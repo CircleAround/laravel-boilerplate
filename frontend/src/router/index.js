@@ -4,6 +4,10 @@ import LoginView from '../views/LoginView.vue'
 import AdminUsersView from '../views/admin/users/IndexView.vue'
 import AdminUserEditView from '../views/admin/users/EditView.vue'
 import AdminUserCreateView from '../views/admin/users/CreateView.vue'
+import TeamsView from '../views/teams/IndexView.vue'
+import TeamShowView from '../views/teams/ShowView.vue'
+import TeamCreateView from '../views/teams/CreateView.vue'
+import TeamEditView from '../views/teams/EditView.vue'
 
 const routes = [
   {
@@ -44,6 +48,26 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/teams',
+    name: 'teams',
+    component: TeamsView,
+  },
+  {
+    path: '/teams/:id/edit',
+    name: 'teamEdit',
+    component: TeamEditView,
+  },
+  {
+    path: '/teams/create',
+    name: 'teamCreate',
+    component: TeamCreateView,
+  },
+  {
+    path: '/teams/:id',
+    name: 'teamShow',
+    component: TeamShowView,
   }
 ]
 
