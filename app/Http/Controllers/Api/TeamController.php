@@ -45,7 +45,8 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return response()->json($team);
+        $latest_commented_task = $team->latestCommentedTask();
+        return response()->json([...$team->toArray(), 'latest_commented_task' => $latest_commented_task]);
     }
 
     /**
@@ -58,7 +59,7 @@ class TeamController extends Controller
     public function update(Request $request, Team $team)
     {
         $validated = $request->validate([
-            'name' => 'required|max:20'
+            'name' => 'required|max:20',
         ]);
 
         $team->fill($validated);

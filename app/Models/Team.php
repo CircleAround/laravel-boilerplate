@@ -64,4 +64,13 @@ class Team extends Model
                 ->first()
         );
     }
+
+    public function latestCommentedTask()
+    {
+        return $this->tasks()
+            ->join('comments', 'comments.task_id', '=', 'tasks.id')
+            ->orderBy('comments.created_at', 'desc')
+            ->select('tasks.id', 'tasks.title')
+            ->first();
+    }
 }
