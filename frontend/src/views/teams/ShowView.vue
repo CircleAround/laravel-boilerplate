@@ -2,6 +2,12 @@
   <div>
     <h2>{{ team.name }}</h2>
     <router-link :to="{ name: 'teamEdit', params: { id: team.id } }">編集</router-link>
+    <div>
+      <div v-if="team.latest_commented_task">
+        最新コメントのタスク: {{ team.latest_commented_task.title }}( {{ team.latest_commented_task.id }} )
+      </div>
+      <div v-else>チームのタスクにコメントはありません</div>
+    </div>
   </div>
 </template>
 
