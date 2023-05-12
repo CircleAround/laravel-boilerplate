@@ -18,7 +18,7 @@
                 <th>操作</th>
             </thead>
             <tbody>
-                @foreach ($user->assignedTasks as $task)
+                @foreach ($user->assignedTasks()->with('assignee')->get() as $task)
                     <tr>
                         <td scope="row">{{ $task->team->name }}</td>
                         <td>{{ $task->id }}</td>
