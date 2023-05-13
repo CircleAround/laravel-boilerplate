@@ -22,7 +22,7 @@
             @foreach ($tasks as $task)
                 <tr>
                     <th scope="row">{{ $task->id }}</th>
-                    <td>{{ $task->title }}</td>
+                    <td><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></td>
                     <td>
                         {{ $task->assignee ? $task->assignee->name : 'なし' }}
                     </td>
