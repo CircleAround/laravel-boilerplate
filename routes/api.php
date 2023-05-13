@@ -29,3 +29,4 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 });
 
 Route::apiResource('/teams', TeamController::class);
+Route::get('/teams/{team}/summary', [TeamController::class, 'summary']);

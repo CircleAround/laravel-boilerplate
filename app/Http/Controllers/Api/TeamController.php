@@ -45,8 +45,17 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        return response()->json($team);
+    }
+
+    public function summary(Team $team)
+    {
         $latest_commented_task = $team->latestCommentedTask();
-        return response()->json([...$team->toArray(), 'latest_commented_task' => $latest_commented_task]);
+        $task_summary = $team->taskSummary();
+        return response()->json([
+            'latest_commented_task' => $latest_commented_task,
+            'task_summary' => $task_summary,
+        ]);
     }
 
     /**

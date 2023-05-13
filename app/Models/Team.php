@@ -73,4 +73,13 @@ class Team extends Model
             ->select('tasks.id', 'tasks.title')
             ->first();
     }
+
+    public function taskSummary() {
+        return $this->tasks()
+            ->leftJoin('comments', 'comments.task_id', '=', 'tasks.id')
+            ->groupBy('tasks.id')
+            ->select('tasks.id', 'tasks.title')
+            ->selectRaw('COUNT(comments.id) as comment_count')
+            ->get();
+    }
 }
