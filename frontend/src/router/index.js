@@ -8,6 +8,9 @@ import TeamsView from '../views/teams/IndexView.vue'
 import TeamShowView from '../views/teams/ShowView.vue'
 import TeamCreateView from '../views/teams/CreateView.vue'
 import TeamEditView from '../views/teams/EditView.vue'
+import Counter from '../views/step5/Counter.vue'
+import AjaxView from '../views/step6/AjaxView.vue'
+import AjaxView2 from '../views/step6/AjaxView2.vue'
 
 const routes = [
   {
@@ -50,24 +53,38 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
+    // ② ~
+    path: '/counter',
+    component: Counter
+  }, // ~ ②
+  { // 追加 ~
+    path: '/ajax-view',
+    component: AjaxView
+  }, // ~ 追加
+  { // 追加 ~
+    path: '/ajax-view2',
+    component: AjaxView2
+  }, // ~ 追加
+  {
     path: '/teams',
     name: 'teams',
-    component: TeamsView,
+    component: TeamsView
   },
+  
   {
     path: '/teams/:id/edit',
     name: 'teamEdit',
-    component: TeamEditView,
+    component: TeamEditView
   },
   {
     path: '/teams/create',
     name: 'teamCreate',
-    component: TeamCreateView,
+    component: TeamCreateView
   },
   {
     path: '/teams/:id',
     name: 'teamShow',
-    component: TeamShowView,
+    component: TeamShowView
   }
 ]
 
