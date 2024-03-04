@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Me;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
@@ -22,5 +23,16 @@ class TaskController extends Controller
             ->get();
 
         return response()->json($tasks);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Task $task)
+    {
+        return response()->json($task);
     }
 }

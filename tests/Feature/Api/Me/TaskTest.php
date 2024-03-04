@@ -20,7 +20,9 @@ class TaskTest extends TestCase
         $team = Team::factory()->create(['owner_id' => $user->id]);
         $team2 = Team::factory()->create(['owner_id' => $other->id]);
 
-        $tasks = Task::factory()->count(2)->create(['team_id' => $team->id, 'assignee_id' => $user->id]);
+        $tasks = Task::factory()
+            ->count(2)
+            ->create(['team_id' => $team->id, 'assignee_id' => $user->id]);
         $tasks->push(Task::factory()->create(['team_id' => $team2->id, 'assignee_id' => $user->id]));
         Task::factory()->create(['team_id' => $team2->id, 'assignee_id' => $other->id]); // 担当者が違うので無視される
 
@@ -28,5 +30,18 @@ class TaskTest extends TestCase
 
         $response = $this->get('/api/me/tasks');
         $response->assertStatus(200)->assertJson($tasks->toArray());
+    }
+
+    public function test_returns_a_response_of_specify_task()
+    {
+        $user = User::factory()->create();
+        $team = Team::factory()->create(['owner_id' => $user->id]);
+
+        $task = Task::factory()->create(['team_id' => $team->id, 'assignee_id' => $user->id]);
+
+        Sanctum::actingAs($user);
+
+        $response = $this->get('/api/me/tasks/' . $task->id);
+        $response->assertStatus(200)->assertJson($task->toArray());
     }
 }
