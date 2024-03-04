@@ -63,7 +63,7 @@ VSCode の Dev Container 機能が有効になっています。プロジェク�
 
 ### 3. DBの初期化
 
-VSCodeのターミナルから以下のコマンドを入力すると、DBを初期化することができます。
+VSCodeのターミナルを新規に立ち上げて以下のコマンドを入力すると、DBを初期化することができます。
 
 ```
 sail@3d84e5412bb8:/var/www/html$ php artisan migrate:fresh --seed
