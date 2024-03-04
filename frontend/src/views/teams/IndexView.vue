@@ -26,14 +26,11 @@
 </template>
 
 <script setup>
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
-import { userKey, flashMessageKey } from '@/keys'
 import ErrorPanel from '@/components/ErrorPanel.vue'
 
-const currentUser = inject(userKey) // ログイン中のユーザー取得
 const teams = ref()
-const { setMessage } = inject(flashMessageKey) // flashメッセージに設定する関数の取得
 
 const error = ref({})
 

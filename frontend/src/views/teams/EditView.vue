@@ -20,12 +20,11 @@
 import { inject, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import axios, { AxiosError } from 'axios'
-import { userKey, flashMessageKey } from '@/keys'
+import { flashMessageKey } from '@/keys'
 import ErrorPanel from '@/components/ErrorPanel'
 
 const route = useRoute()
 
-const currentUser = inject(userKey) // ログイン中のユーザー取得
 const team = ref({ id: route.params.id })
 const error = ref({})
 const blocking = ref(true)
