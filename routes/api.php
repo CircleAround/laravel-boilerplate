@@ -31,4 +31,5 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/me/tasks', TaskController::class);
+    Route::apiResource('/me/teams', TeamController::class);
 });
