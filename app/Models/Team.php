@@ -48,4 +48,13 @@ class Team extends Model
     {
         return $this->hasMany(Member::class);
     }
+    
+    public function isManager(User $user)
+    {
+        return !empty(
+            $this->members()
+                ->where(['user_id' => $user->id, 'role' => 1])
+                ->first()
+        );
+    }
 }

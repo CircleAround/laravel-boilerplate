@@ -18,9 +18,7 @@ class EnsureManager
     public function handle(Request $request, Closure $next)
     {
         $team = $request->route('team');
-        $manager = $team->members()->where(['user_id' => $request->user()->id, 'role' => 1])->first();
-
-        if (!$manager) {
+        if (!$team->isManager($request->user())) {
             return redirect('/')->with('danger', 'アクセスできません');
         }
 
