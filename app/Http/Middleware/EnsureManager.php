@@ -17,7 +17,7 @@ class EnsureManager
      */
     public function handle(Request $request, Closure $next)
     {
-        $team = $request->route()->parameters()['team'];
+        $team = $request->route('team');
         $manager = $team->members()->where(['user_id' => $request->user()->id, 'role' => 1])->first();
 
         if (!$manager) {
