@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Auth;
 class TeamController extends \App\Http\Controllers\Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $teams = Team::all();
+        return view('teams.index', compact('teams'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -42,11 +42,11 @@ Route::prefix('manager')
     ->name('manager.')
     ->scopeBindings()
     ->group(function () {
-        Route::resource('/teams', TeamController::class, ['except' => 'destroy']);
+        Route::resource('/teams', TeamController::class, ['except' => 'index', 'destroy']);
         Route::resource('/teams.tasks', TaskController::class, ['except' => ['destroy', 'index', 'show']]);
         Route::resource('/teams.members', MemberController::class, ['only' => ['index', 'store']]);
     });
 
-Route::resource('/teams', App\Http\Controllers\TeamController::class, ['only' => ['create', 'store']]);
+Route::resource('/teams', App\Http\Controllers\TeamController::class, ['only' => ['index', 'create', 'store']]);
         
     
