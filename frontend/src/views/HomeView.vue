@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-if="user">
+    <div v-if="tasks">
       <h2>アサインされているタスク</h2>
       <table class="standard">
         <thead>
@@ -40,26 +40,24 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref, inject } from 'vue'
-import axios from 'axios'
-import { userKey } from '@/keys'
+import { ref, onMounted } from 'vue'
+import axios, { AxiosError } from 'axios'
 
-const user = inject(userKey)
-const tasks = ref([])
-const teams = ref([])
+const tasks = ref()
+const teams = ref()
 
-if (user.value) {
-  // eslint-disable-next-line no-extra-semi
-  ;(async () => {
-    const res = await axios.get(`/api/me/tasks`)
-    tasks.value = res.data
-  })()
+onMounted(async () => {
+  try {
+    const [tasksRes, teamsRes] = await Promise.all([axios.get(`/api/me/tasks`), axios.get(`/api/me/teams`)])
+    tasks.value = tasksRes.data
+    teams.value = teamsRes.data
+  } catch (err) {
+    if (!(err instanceof AxiosError) || err.response?.status !== 401) {
+      throw err
+    }
 
-  ;(async () => {
-    const res = await axios.get(`/api/me/teams`)
-    teams.value = res.data
-  })()
-}
+    // ログインできてない場合には描画を継続するので何もしない
+  }
+})
 </script>
