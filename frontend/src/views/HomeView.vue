@@ -12,10 +12,10 @@
           <th>操作</th>
         </thead>
         <tr v-for="task in tasks" :key="task.id">
-          <td>{{ task.team_id }}</td>
+          <td>{{ task.team.name }}</td>
           <td>{{ task.id }}</td>
           <td>{{ task.title }}</td>
-          <td>{{ task.assignee_id }}</td>
+          <td>{{ task.assignee.name }}</td>
           <td>{{ task.created_at }}</td>
           <td>
             <router-link :to="`/tasks/${task.id}`">詳細</router-link>
@@ -28,10 +28,12 @@
         <thead>
           <th>チームID</th>
           <th>チーム名</th>
+          <th>役割</th>
         </thead>
         <tr v-for="team in teams" :key="team.id">
           <td>{{ team.id }}</td>
           <td>{{ team.name }}</td>
+          <td>{{ team.role === 1 ? 'マネージャー' : '通常' }}</td>
         </tr>
       </table>
     </div>

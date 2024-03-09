@@ -16,11 +16,6 @@ class TeamController extends Controller
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $teams = $user
-            ->teams()
-            ->orderBy('id')
-            ->get();
-
-        return response()->json($teams);
+        return response()->json($user->teamWithRoles());
     }
 }

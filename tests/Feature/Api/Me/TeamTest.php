@@ -23,11 +23,14 @@ class TeamTest extends TestCase
         $team->members()->create(['user_id' => $user->id]);
         $team->members()->create(['user_id' => $other->id]);
         $team2->members()->create(['user_id' => $other->id]); // $userが含まれないチームなので無視される
-        $team3->members()->create(['user_id' => $user->id]);
+        $team3->members()->create(['user_id' => $user->id, 'role' => 1]);
 
         Sanctum::actingAs($user);
 
         $response = $this->get('/api/me/teams');
-        $response->assertStatus(200)->assertJson([$team->toArray(), $team3->toArray()]);
+
+        $json = $response->assertStatus(200)->decodeResponseJson();
+        $this->assertEquals([...$team->toArray(), 'role' => 0], $json[0]); // レスポンスにTeam情報と共にroleが含まれている
+        $this->assertEquals([...$team3->toArray(), 'role' => 1], $json[1]);
     }
 }

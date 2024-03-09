@@ -29,7 +29,13 @@ class TaskTest extends TestCase
         Sanctum::actingAs($user);
 
         $response = $this->get('/api/me/tasks');
-        $response->assertStatus(200)->assertJson($tasks->toArray());
+
+        $taskObjs = $tasks->toArray();
+        $json = $response->assertStatus(200)->decodeResponseJson();
+        
+        $this->assertEquals([...$taskObjs[0], 'assignee' => $user->toArray(), 'team' => $team->toArray()], $json[0]);
+        $this->assertEquals([...$taskObjs[1], 'assignee' => $user->toArray(), 'team' => $team->toArray()], $json[1]);
+        $this->assertEquals([...$taskObjs[2], 'assignee' => $user->toArray(), 'team' => $team2->toArray()], $json[2]);
     }
 
     public function test_returns_a_response_of_specify_task()

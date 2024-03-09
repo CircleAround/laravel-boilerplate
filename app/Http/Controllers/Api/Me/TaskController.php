@@ -19,6 +19,7 @@ class TaskController extends Controller
         $user = Auth::user();
         $tasks = $user
             ->assignedTasks()
+            ->with('team', 'assignee')
             ->orderBy('id')
             ->get();
 

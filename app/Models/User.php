@@ -56,6 +56,29 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class, 'members');
     }
 
+    public function members()
+    {
+        return $this->hasMany(Member::class, 'user_id');
+    }
+
+    public function teamWithRoles()
+    {
+        $members = $this->members()
+            ->with('team')
+            ->orderBy('id')
+            ->get();
+
+        $func = function ($member) {
+            $team = $member['team'];
+            unset($member['team']);
+
+            $team['role'] = $member['role'];
+            return $team;
+        };
+
+        return array_map($func, $members->toArray());
+    }
+
     public function assignedTasks()
     {
         return $this->hasMany(Task::class, 'assignee_id');
