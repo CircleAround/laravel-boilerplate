@@ -63,12 +63,11 @@ table.standard td {
 </style>
 
 <script setup>
-import { ref, provide } from 'vue'
+import { ref, provide, onMounted } from 'vue'
 import { userKey } from '@/keys'
 import axios from 'axios'
 import FlashMessage from '@/components/FlashMessage.vue'
 import { flashMessageKey } from './keys'
-import { useRouter } from 'vue-router'
 
 const user = ref()
 provide(userKey, user)
@@ -86,9 +85,7 @@ const flashMessageStore = {
 }
 provide(flashMessageKey, flashMessageStore)
 
-const router = useRouter()
-
-;(async () => {
+onMounted(async () => {
   try {
     const res = await axios.get('/api/user')
     user.value = res.data
@@ -96,13 +93,13 @@ const router = useRouter()
     user.value = null
     console.log('ログインしていません')
   }
-})()
+})
 
 const handleLogout = async () => {
   await axios.post('/api/logout')
   user.value = null
   flashMessageStore.setMessage('ログアウトしました')
-  
-  router.push('/')
+
+  location.href = '/'
 }
 </script>
