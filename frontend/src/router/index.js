@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import AdminUsersView from '../views/admin/users/IndexView.vue'
 import AdminUserEditView from '../views/admin/users/EditView.vue'
 import AdminUserCreateView from '../views/admin/users/CreateView.vue'
+import TaskView from '../views/tasks/TaskView.vue'
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/tasks/:id',
+    name: 'task',
+    component: TaskView
   },
   {
     path: '/admin',

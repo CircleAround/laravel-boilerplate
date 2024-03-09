@@ -16,7 +16,9 @@
         <td>{{ task.title }}</td>
         <td>{{ task.assignee_id }}</td>
         <td>{{ task.created_at }}</td>
-        <td></td>
+        <td>
+          <router-link :to="`/tasks/${task.id}`">詳細</router-link>
+        </td>
       </tr>
     </table>
 

@@ -31,8 +31,16 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($id)
     {
-        return response()->json($task);
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $task = $user
+            ->assignedTasks()
+            ->where('id', $id) // ここで teamを with で取ってくる実装もあり
+            ->first();
+
+        return response()->json($task->load('team')); // load の方法も知っていると良い
     }
 }

@@ -38,10 +38,13 @@ class TaskTest extends TestCase
         $team = Team::factory()->create(['owner_id' => $user->id]);
 
         $task = Task::factory()->create(['team_id' => $team->id, 'assignee_id' => $user->id]);
+        $team = $task->team;
+        $taskObj = $task->toArray();
+        $this->assertEquals($team->toArray(), $taskObj['team']); // taskObj には team が含まれている
 
         Sanctum::actingAs($user);
 
         $response = $this->get('/api/me/tasks/' . $task->id);
-        $response->assertStatus(200)->assertJson($task->toArray());
+        $response->assertStatus(200)->assertJson($taskObj);
     }
 }
