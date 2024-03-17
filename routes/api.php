@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\Me\TeamController;
 use App\Http\Controllers\Api\Me\TaskController;
+use App\Http\Controllers\Api\Me\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,6 @@ Route::middleware(['auth:sanctum', 'ensureAdmin'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/me/tasks', TaskController::class);
+    Route::apiResource('/me/tasks.comments', CommentController::class, ['only' => ['index', 'store']]);
     Route::apiResource('/me/teams', TeamController::class);
 });
