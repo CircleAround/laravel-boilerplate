@@ -50,7 +50,7 @@ class TaskTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->get('/api/me/tasks/' . $task->id);
+        $response = $this->get('/api/tasks/' . $task->id);
         $response->assertStatus(200)->assertJson($taskObj);
     }
 }

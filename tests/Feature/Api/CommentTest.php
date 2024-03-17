@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\Me;
+namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -25,7 +25,7 @@ class CommentTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->get("/api/me/tasks/{$task->id}/comments");
+        $response = $this->get("/api/tasks/{$task->id}/comments");
         $response->assertStatus(200)->assertJson($comments->toArray());
     }
 
@@ -38,7 +38,7 @@ class CommentTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->post("/api/me/tasks/{$task->id}/comments", [
+        $response = $this->post("/api/tasks/{$task->id}/comments", [
             'message' => 'test message',
         ]);
 
@@ -62,7 +62,7 @@ class CommentTest extends TestCase
 
         Sanctum::actingAs($user);
 
-        $response = $this->post("/api/me/tasks/{$task->id}/comments", [
+        $response = $this->post("/api/tasks/{$task->id}/comments", [
             'message' => 'test message',
             'kind' => 1,
         ]);

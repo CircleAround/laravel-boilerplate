@@ -49,7 +49,7 @@ const route = useRoute()
 const handleCommentPost = () => {
   // eslint-disable-next-line no-extra-semi
   ;(async () => {
-    await axios.post(`/api/me/tasks/${route.params.id}/comments`, {
+    await axios.post(`/api/tasks/${route.params.id}/comments`, {
       message: message.value,
       kind: finished.value ? 1 : 0
     })
@@ -57,15 +57,15 @@ const handleCommentPost = () => {
     message.value = ''
     finished.value = false
 
-    const commentsRes = await axios.get(`/api/me/tasks/${route.params.id}/comments`)
+    const commentsRes = await axios.get(`/api/tasks/${route.params.id}/comments`)
     comments.value = commentsRes.data
   })()
 }
 
 onMounted(async () => {
   const [taskRes, commentsRes] = await Promise.all([
-    axios.get(`/api/me/tasks/${route.params.id}`),
-    axios.get(`/api/me/tasks/${route.params.id}/comments`)
+    axios.get(`/api/tasks/${route.params.id}`),
+    axios.get(`/api/tasks/${route.params.id}/comments`)
   ])
   task.value = taskRes.data
   comments.value = commentsRes.data
