@@ -14,12 +14,16 @@ class UserTest extends TestCase
     public function test_users_returns_a_successful_response_for_admin()
     {
         $this->seed('UserSeeder'); // UserSeeder を動かしてからテスト
-        Sanctum::actingAs(User::first()); // 1番は管理者
 
+        // id:1 は管理者で、管理者としてログインしている想定
+        Sanctum::actingAs(User::first());
+
+        // api/users へのアクセス
+        // APIアクセスの場合にはヘッダをつける方が適切
         $response = $this->withHeaders(['Accept' => 'application/json'])->get('/api/users');
 
-        $response->assertStatus(200);
-        $json = $response->decodeResponseJson();
+        $response->assertStatus(200); // 200 OK が返ってくることを確認
+        $json = $response->decodeResponseJson(); // JSONの値を取り出す
 
         $this->assertEquals(3, count($json)); // Seederで入った3人分のデータが取得できている
     }
