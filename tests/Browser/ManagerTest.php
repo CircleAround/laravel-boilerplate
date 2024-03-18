@@ -23,7 +23,6 @@ class TaskTest extends DuskTestCase
             $browser->visit('/')->assertSeeLink('チーム一覧');
             $browser->clickLink('チーム一覧');
             $browser->assertSeeLink('TestTeam');
-            $browser->screenshot('top');
         });
 
         $team->delete();
