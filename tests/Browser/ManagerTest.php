@@ -18,8 +18,8 @@ class TaskTest extends DuskTestCase
         $user = User::factory()->create();
         $team = Team::factory()->create(['name' => 'TestTeam', 'owner_id' => $user->id]);
 
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1));
+        $this->browse(function (Browser $browser) use($user) {
+            $browser->loginAs($user);
             $browser->visit('/')->assertSeeLink('チーム一覧');
             $browser->clickLink('チーム一覧');
             $browser->assertSeeLink('TestTeam');
