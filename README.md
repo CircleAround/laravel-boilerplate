@@ -61,7 +61,7 @@ docker run --rm -v "$(pwd)":/opt -w /opt laravelsail/php81-composer:latest bash 
 
 VSCode の Dev Container 機能が有効になっています。プロジェクトを VSCode で開くと Dev Container で再度開く旨が通知されるので、OK してください。初回は少し時間がかかるかもしれませんが、2度目以降は早く起動するようになるはずです。
 
-### 3. DBの初期化
+### 3. DB、モジュールの初期化
 
 VSCodeのターミナルから以下のコマンドを入力すると、DBを初期化することができます。
 
@@ -72,6 +72,18 @@ sail@3d84e5412bb8:/var/www/html$ php artisan migrate:fresh --seed
 この時点でシステムは稼働していて、ソースコードを変更するとその変更がシステムに反映される想定です。 `.env.example` の内容に従っていれば、以下のURLが稼働しています。
 
 - http://localhost:3000 サーバーサイドのシステム（通常のWebアクセスおよびAPI提供）
+
+フロントエンドの実装を用意する際には以下のようにします。
+
+```
+sail@3d84e5412bb8:/var/www/html$ cd frontend
+sail@3d84e5412bb8:/var/www/html/frontend$ yarn install
+```
+
+ここで一度システムを再起動してください（VsCode を閉じて、改めて開く）。
+
+この操作で以下の URL が稼働します。
+
 - http://localhost:8080 フロントエンドのシステム（Vue3開発用）
 
 ## 明示的に終了
