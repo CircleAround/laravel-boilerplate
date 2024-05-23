@@ -1,10 +1,9 @@
 <template>
   <div>
-    <input v-model="name"><button v-on:click="createTeam">送信</button> <!-- ① -->
+    <input v-model="email" /><button v-on:click="createUser">送信</button>
+    <!-- ① -->
     <ul>
-      <li v-for="team in teams" :key="team.id">
-        {{ team.name }}
-      </li>
+      <li v-for="user in users" :key="user.id">{{ user.name }}: {{ user.email }}</li>
     </ul>
   </div>
 </template>
@@ -16,22 +15,27 @@ import axios from 'axios' // ①
 export default {
   name: 'AjaxView2',
   setup() {
-    const teams = ref([]) // ②
-    onMounted(async function() { // ③
-      const url = '/api/teams'
+    const users = ref([]) // ②
+    onMounted(async function () {
+      // ③
+      const url = '/api/users'
       const res = await axios.get(url) // ④
-      teams.value = res.data // ⑤
+      users.value = res.data // ⑤
     })
 
-
-    const name = ref('')
-    const createTeam = async function() {
-      const url = '/api/teams'
-      const res = await axios.post(url, { name: name.value }) // ④
-      teams.value.push(res.data) // ⑤
+    const email = ref('')
+    const createUser = async function () {
+      const url = '/api/users'
+      const res = await axios.post(url, {
+        name: 'dummy',
+        password: 'password',
+        role: 0,
+        email: email.value
+      }) // ④
+      users.value.push(res.data) // ⑤
     }
 
-    return { teams, name, createTeam }
+    return { users, email, createUser }
   }
-};
+}
 </script>

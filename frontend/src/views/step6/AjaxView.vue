@@ -1,9 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="team in teams" :key="team.id">
-        {{ team.name }}
-      </li>
+      <li v-for="user in users" :key="user.id">{{ user.name }}: {{ user.email }}</li>
     </ul>
   </div>
 </template>
@@ -15,14 +13,15 @@ import axios from 'axios' // ①
 export default {
   name: 'AjaxView',
   setup() {
-    const teams = ref([]) // ②
-    onMounted(async function() { // ③
-      const url = '/api/teams'
+    const users = ref([]) // ②
+    onMounted(async function () {
+      // ③
+      const url = '/api/users'
       const res = await axios.get(url) // ④
-      teams.value = res.data // ⑤
+      users.value = res.data // ⑤
     })
 
-    return { teams }
+    return { users }
   }
-};
+}
 </script>
