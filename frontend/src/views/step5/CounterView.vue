@@ -1,25 +1,11 @@
 <template>
-  <div>
-    <p>{{ count }}</p>
-    <button v-on:click="countUp">カウントアップ</button>
-  </div>
+  <count-up></count-up>
 </template>
 
 <script>
-import { ref } from 'vue'
+import CountUp from '@/components/step5/CountUp' // ②
 
 export default {
-  name: 'CounterView',
-  setup() {
-    const count = ref(0)
-    const countUp = function() {
-      count.value += 1
-    }
-
-    return {
-      count,
-      countUp
-    }
-  }
+  components: { 'CountUp': CountUp } // ③
 }
 </script>
