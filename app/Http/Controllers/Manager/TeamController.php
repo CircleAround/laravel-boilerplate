@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Http\Requests\TeamModifyRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -36,12 +37,10 @@ class TeamController extends \App\Http\Controllers\Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(TeamModifyRequest $request, Team $team)
     {
         // @see https://laravel.com/docs/9.x/validation#quick-writing-the-validation-logic
-        $validated = $request->validate([
-            'name' => 'required|max:20'
-        ]);
+        $validated = $request->validated();
 
         $team->fill($validated);
         $team->save();
