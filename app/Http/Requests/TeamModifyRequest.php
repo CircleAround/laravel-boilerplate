@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * php artisan make:request TeamModifyRequest で作成
+ */
 class TeamModifyRequest extends FormRequest
 {
     /**
